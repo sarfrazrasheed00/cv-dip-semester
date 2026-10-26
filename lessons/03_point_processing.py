@@ -71,3 +71,5 @@ comparison_path = output_dir / "05_comparison.png"
 cv2.imwrite(str(comparison_path), comparison)
 print("Saved:", comparison_path.relative_to(ROOT))
 print("Practical 03 complete!")
+
+
