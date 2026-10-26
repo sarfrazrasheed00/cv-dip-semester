@@ -1,19 +1,35 @@
-"""Lesson 01: Digital images as numerical arrays (CV + DIP)."""
-from pathlib import Path
 import cv2
-import numpy as np
+from pathlib import Path
 
-# A 3x3 grayscale image: each value is one pixel intensity.
-image = np.array([[0, 128, 255], [50, 100, 200], [25, 150, 230]], dtype=np.uint8)
-print('Image matrix:\n', image)
-print('Shape:', image.shape)
-print('Pixel (row=1, col=1):', image[1, 1])
-print('Bit depth per pixel:', image.dtype.itemsize * 8)
-print('Raw bytes:', image.nbytes)
+image = cv2.imread("datasets/sample.jpg")
 
-out = Path('results')
+if image is None:
+    raise FileNotFoundError("Image not found")
+
+out = Path("results")
 out.mkdir(exist_ok=True)
-# Nearest-neighbour upscale is only for visualization, preserving discrete pixel values.
-preview = cv2.resize(image, (300, 300), interpolation=cv2.INTER_NEAREST)
-cv2.imwrite(str(out / 'lesson_01_pixels.png'), preview)
-print('Saved:', out / 'lesson_01_pixels.png')
+
+# 1. Read & Display
+cv2.imshow("Original", image)
+
+# 2. Convert to Grayscale
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# 3. Resize to 300x300
+resized = cv2.resize(image, (300, 300))
+
+# 4. Rotate 90 degrees clockwise
+rotated = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+
+# 5. Crop center portion
+h, w = image.shape[:2]
+cropped = image[h//4:3*h//4, w//4:3*w//4]
+
+# Save results
+cv2.imwrite(str(out / "grayscale.png"), gray)
+cv2.imwrite(str(out / "resized.png"), resized)
+cv2.imwrite(str(out / "rotated.png"), rotated)
+cv2.imwrite(str(out / "cropped.png"), cropped)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
