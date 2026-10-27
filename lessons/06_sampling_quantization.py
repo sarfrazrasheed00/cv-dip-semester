@@ -97,3 +97,12 @@ for bits in (8, 4, 2, 1):
     print(f"Pixel 180 ko {bits}-bit mein: {int(quantize_grayscale(example, bits)[0, 0])}")
 
 print(f"\nAll outputs saved: {OUTPUT_DIR}")
+
+
+import cv2
+
+image = cv2.imread("results/convolution/01_original.png", cv2.IMREAD_UNCHANGED)
+
+print("Shape:", image.shape)
+print("Data Type:", image.dtype)
+print("Bits per Channel:", image.dtype.itemsize * 8)
