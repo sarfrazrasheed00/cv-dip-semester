@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 # 2. Original image aur output folder ke paths
-image_path = ROOT / "datasets" / "sample.jpg"
+image_path = ROOT / "datasets" / "colorful.png"
 output_dir = ROOT / "results" / "rgb_channels"
 output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -17,7 +17,7 @@ if image is None:
     raise FileNotFoundError("Image nahi mili!")
 
 # 4. BGR image ko 3 separate channels mein divide karo
-blue, green, red = cv2.split(image)
+blue, green, red = cv2.split(image) 
 
 # 5. Har channel ko separate grayscale image mein save karo
 cv2.imwrite(str(output_dir / "01_blue.png"), blue)
