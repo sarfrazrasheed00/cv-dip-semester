@@ -6,8 +6,8 @@ from pathlib import Path
 # -----------------------------
 # Q3 parameters
 # -----------------------------
-SIGMA = 1.0
-KERNEL_SIZE = 7
+SIGMA = 1
+KERNEL_SIZE = 14
 T_LOW = 0.10
 T_HIGH = 0.30
 
@@ -31,8 +31,6 @@ gray = gray.astype(np.float64) / 255.0
 # -----------------------------
 # Q3(a) Gaussian smoothing
 # -----------------------------
-# Gaussian kernel formula se khud banaya hai.
-# GaussianBlur() use nahi kiya.
 
 def gaussian_kernel(size, sigma):
     half = size // 2
@@ -224,15 +222,3 @@ plt.show()
 print("Q3 completed")
 print("Our edge pixels:", np.count_nonzero(final_edges))
 print("Built-in Canny edge pixels:", np.count_nonzero(canny))
-
-"""
-First I converted the image to grayscale and normalized it to [0,1]. Then I created the Gaussian kernel manually and smoothed the image. After that I applied Sobel X and Y filters to calculate gradient magnitude and direction. I used double thresholding to classify strong and weak edges and applied 8-connected hysteresis to preserve connected weak edges. Finally, I compared my result with built-in Sobel and OpenCV Canny.
-
-Gaussian → noise smooth karta hai.  
-Sobel X/Y → intensity changes find karta hai.  
-Magnitude → edge strength.  
-Direction → gradient direction.  
-Double threshold → strong/weak edges separate karta hai.  
-Hysteresis → strong se connected weak edges preserve karta hai.
-
-"""
